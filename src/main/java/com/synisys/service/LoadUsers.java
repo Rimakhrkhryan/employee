@@ -1,5 +1,6 @@
 package com.synisys.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.synisys.dao.Dao;
 import com.synisys.model.Employee;
 
@@ -10,27 +11,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 /**
- * Created by rima.khrkhryan on 4/12/2018.
+ * Created by rima.khrkhryan on 4/17/2018.
  */
-@WebServlet("/addUser")
+@WebServlet("/loadUsers")
 /**
- * add new employee in tmp table whit "add" flag
+ * load employees from tables of db
  */
-public class AddUser extends HttpServlet {
+public class LoadUsers extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Employee employee = new Employee();
-        employee.setName(request.getParameter("name"));
-        employee.setLastName(request.getParameter("lastName"));
-        employee.setAddress(request.getParameter("address"));
-        employee.setJobTitle(request.getParameter("jobTitle"));
-        employee.setId((int)(Math.random()*100));
-        employee.setFlag("add");
+    protected void doGet(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
         Dao dao = new Dao();
         try {
-            dao.save(employee,"tmp");
+            List<Employee> employees = dao.loadUsers("employees");
+            List<Employee> tmpEmployees = dao.loadUsers("tmp");
+            employees.addAll(tmpEmployees);
+            ObjectMapper mapper = new ObjectMapper();
+            response.setContentType("application/json");
+            response.getWriter().write(mapper.writeValueAsString(employees));
+
+
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -40,6 +42,6 @@ public class AddUser extends HttpServlet {
         } catch (InstantiationException e) {
             e.printStackTrace();
         }
-        response.sendRedirect("/portfolio.jsp");
+
     }
 }

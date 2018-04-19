@@ -1,6 +1,7 @@
 package com.synisys.service;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +10,11 @@ import java.io.IOException;
 
 /**
  * Created by rima.khrkhryan on 3/20/2018.
+ */
+@WebServlet("/logout")
+
+/**
+ * log out whit cleaning all cookes
  */
 public class LogOut extends HttpServlet{
     @Override

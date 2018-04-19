@@ -9,6 +9,16 @@ public class Employee {
     String address;
     String JobTitle;
     int id;
+    String flag;
+
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
 
     public int getId() {
         return id;
@@ -51,6 +61,7 @@ public class Employee {
         JobTitle = jobTitle;
     }
 
+
     @Override
     public String toString() {
         return "Employee{" +
@@ -58,6 +69,9 @@ public class Employee {
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 ", JobTitle='" + JobTitle + '\'' +
+                ", id=" + id +
+                ", flag='" + flag + '\'' +
                 '}';
     }
+
 }
