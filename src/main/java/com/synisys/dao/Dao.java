@@ -58,6 +58,8 @@ public class Dao {
         pstmt.setString(6, employee.getFlag());
         pstmt.executeUpdate();
         statement.close();
+
+
     }
 
     public void deleteUser(int id, String tableName) throws ClassNotFoundException, SQLException, InstantiationException, IllegalAccessException {
